@@ -30,6 +30,8 @@ trait MetricsHandler {
 	public function setMetrics($metrics)
 	{
 		$this->metrics = $this->convertToArrayIfString($metrics);
+
+		return $this;
 	}
 
 	/**

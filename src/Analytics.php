@@ -35,6 +35,8 @@ class Analytics {
 	private $startDate;
 	private $endDate;
 
+	private $data;
+
 	private $service;
 
 	function __construct(Core $googleServicesCore) {
@@ -74,45 +76,6 @@ class Analytics {
 	 * 
 	 * @return Illuminate\Support\Collection
 	 */
-	private function getData()
-	{
-		/**
-		 * A query can't run without any metrics.
-		 */
-		if (! $this->metricsAreSet()) {
-			throw new \Exception("No metrics specified.", 1);
-		}
-		
-		$data = $this->service->data_ga->get(
-			$this->analyticsViewId, 
-			$this->startDate, 
-			$this->endDate, 
-			$this->getMetricsAsString(), 
-			$this->getOptions()
-		);
-
-		$headers = $data->getColumnHeaders();
-
-		foreach ($data->getRows() as $rowKey => $rowDatas) {
-
-			foreach ($rowDatas as $dataKey => $rowData) {
-
-				$results[$rowKey][$headers[$dataKey]->name] = $rowData;
-
-			}
-
-		}
-
-		$results = $this->dimentionsAreSet() ? $results : $results[0];
-
-		return collect($results);
-	}
-
-	/**
-	 * Execute the query and fetch the results to a collection.
-	 * 
-	 * @return Illuminate\Support\Collection
-	 */
 	public function getRealtimeData()
 	{
 		$data = $this->service->data_realtime->get(
@@ -134,7 +97,55 @@ class Analytics {
 	{
 		$this->mergeParams($parameters);
 
-		return $this->getData();
+		/**
+		 * A query can't run without any metrics.
+		 */
+		if (! $this->metricsAreSet()) {
+			throw new \Exception("No metrics specified.", 1);
+		}
+		
+		$this->data = $this->service->data_ga->get(
+			$this->analyticsViewId, 
+			$this->startDate, 
+			$this->endDate, 
+			$this->getMetricsAsString(), 
+			$this->getOptions()
+		);
+
+		return $this;
+	}
+
+	private function getData()
+	{
+		return $this->data;
+	}
+
+	public function parseResults()
+	{
+		$simpleDataTable = $this->data->getDataTable()->toSimpleObject();
+
+		foreach ($simpleDataTable->cols as $col) {
+			$cols[] = $col['label'];
+		}
+
+		foreach ($simpleDataTable->rows as $row) {
+			
+			foreach ($row['c'] as $key => $value) {
+
+				$rowData[$cols[$key]] = $value['v'];
+
+			}
+
+			$rows[] = collect($rowData);
+
+			unset($rowData);
+
+		}
+
+		return [
+			'cols' => collect($cols),
+			'rows' => collect($rows),
+		];
 	}
 
 }

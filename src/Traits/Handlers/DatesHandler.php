@@ -14,6 +14,8 @@ trait DatesHandler {
 	public function setStartDate($startDate)
 	{
 		$this->startDate = $this->convertToStringIfCarbonObject($startDate);
+
+		return $this;
 	}
 
 	/**
@@ -24,6 +26,8 @@ trait DatesHandler {
 	public function setEndDate($endDate)
 	{
 		$this->endDate = $this->convertToStringIfCarbonObject($endDate);
+
+		return $this;
 	}
 
 	/**

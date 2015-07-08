@@ -12,11 +12,15 @@ trait SegmentHandler {
 	public function setSegment($segment)
 	{
 		$this->segment = $segment;
+
+		return $this;
 	}
 
 	public function unsetSegment()
 	{
 		$this->segment = null;
+
+		return $this;
 	}
 	
 }

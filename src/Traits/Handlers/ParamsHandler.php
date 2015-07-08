@@ -61,6 +61,8 @@ trait ParamsHandler {
 				}
 			}
 		}
+
+		return $this;
 	}
 
 	public function mergeParams(array $params)
@@ -85,6 +87,8 @@ trait ParamsHandler {
 			throw new \Exception("Property [$key] does not exits.", 1);
 			
 		}
+
+		return $this;
 	}
 	
 }

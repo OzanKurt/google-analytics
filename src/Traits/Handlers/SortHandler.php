@@ -13,11 +13,15 @@ trait SortHandler {
 	public function setSort($sort)
 	{
 		$this->sort = $sort;
+
+		return $this;
 	}
 
 	public function unsetSort()
 	{
 		$this->sort = null;
+
+		return $this;
 	}
 	
 	/**

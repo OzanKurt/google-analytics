@@ -30,6 +30,8 @@ trait DimensionsHandler {
 	public function setDimensions($dimensions)
 	{
 		$this->dimensions = $this->convertToArrayIfString($dimensions);
+
+		return $this;
 	}
 
 	/**
@@ -38,6 +40,8 @@ trait DimensionsHandler {
 	public function unsetDimensions()
 	{
 		$this->dimensions = [];
+
+		return $this;
 	}
 	
 	/**

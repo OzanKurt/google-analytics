@@ -15,7 +15,9 @@ trait HelperFunctions {
 
 	private function getOptions()
 	{
-		$options = [];
+		$options = [
+			'output' => 'dataTable',
+		];
 
 		if ($this->dimentionsAreSet()) {
 			$options['dimensions'] = implode(',', $this->dimensions);

@@ -12,11 +12,15 @@ trait FiltersHandler {
 	public function setFilters($filters)
 	{
 		$this->filters = $filters;
+
+		return $this;
 	}
 
 	public function unsetFilters()
 	{
 		$this->filters = null;
+
+		return $this;
 	}
 
 	/**
