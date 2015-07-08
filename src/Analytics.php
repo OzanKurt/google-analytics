@@ -2,18 +2,35 @@
 
 namespace Kurt\Google;
 
-use Carbon\Carbon;
+use Kurt\Google\Traits\Filters\CustomCommonFilters;
+use Kurt\Google\Traits\Filters\GoogleCommonFilters;
+
+use Kurt\Google\Traits\Handlers\DatesHandler;
+use Kurt\Google\Traits\Handlers\DimensionsHandler;
+use Kurt\Google\Traits\Handlers\FiltersHandler;
+use Kurt\Google\Traits\Handlers\MetricsHandler;
+use Kurt\Google\Traits\Handlers\ParamsHandler;
+use Kurt\Google\Traits\Handlers\SegmentHandler;
+use Kurt\Google\Traits\Handlers\SortHandler;
+
+use Kurt\Google\Traits\HelperFunctions;
 
 class Analytics {
+
+	use HelperFunctions;
+	use CustomCommonFilters, GoogleCommonFilters;
+	use DatesHandler, DimensionsHandler, FiltersHandler, MetricsHandler, ParamsHandler, SegmentHandler, SortHandler;
+
 
 	private $googleServicesCore;
 
 	private $analyticsViewId; 
 
-	private $metrics;
-	private $dimensions;
+	private $metrics = [];
+	private $dimensions = [];
 	private $sort;
 	private $filters;
+	private $segment;
 
 	private $startDate;
 	private $endDate;
@@ -47,41 +64,31 @@ class Analytics {
 
 	private function setupDates()
 	{
-		if (is_null($this->startDate)) {
-			$this->startDate = date('Y-m-d', strtotime('-1 month'));
-		}
-
-		if (is_null($this->endDate)) {
-			$this->endDate = date('Y-m-d');
-		}
+		$this->startDate = date('Y-m-d', strtotime('-1 month'));
+	
+		$this->endDate = date('Y-m-d');
 	}
 
-	private function checkIfTheMetricsAreSet()
+	/**
+	 * Execute the query and fetch the results to a collection.
+	 * 
+	 * @return Illuminate\Support\Collection
+	 */
+	private function getData()
 	{
-		if (is_null($this->metrics)) {
+		/**
+		 * A query can't run without any metrics.
+		 */
+		if (! $this->metricsAreSet()) {
 			throw new \Exception("No metrics specified.", 1);
 		}
-	}
-
-	private function dimentionsAreSet()
-	{
-		return ! is_null($this->dimensions);
-	}
-
-	public function getData()
-	{
-		$this->checkIfTheMetricsAreSet();
 		
 		$data = $this->service->data_ga->get(
 			$this->analyticsViewId, 
 			$this->startDate, 
 			$this->endDate, 
-			$this->metrics, [
-			    'dimensions'    => $this->dimensions,
-			    'sort'          => $this->sort,
-			    'filters' 		=> $this->filters,
-			    // 'filters'       => 'ga:pagePath==/',
-			]
+			$this->getMetricsAsString(), 
+			$this->getOptions()
 		);
 
 		$headers = $data->getColumnHeaders();
@@ -90,175 +97,44 @@ class Analytics {
 
 			foreach ($rowDatas as $dataKey => $rowData) {
 
-				$result[$rowKey][$headers[$dataKey]->name] = $rowData;
+				$results[$rowKey][$headers[$dataKey]->name] = $rowData;
 
 			}
 
 		}
 
-		return $this->dimentionsAreSet() ? $result : $result[0];
+		$results = $this->dimentionsAreSet() ? $results : $results[0];
+
+		return collect($results);
 	}
 
-	// public function getRealtimeData()
-	// {
-	// 	$this->checkIfTheMetricsAreSet();
-
-	// 	$data = $this->analytics->realtime_data->get(
-	// 		$this->analyticsViewId, 
-	// 		$this->metrics, [
-	// 		    'dimensions'    => $this->dimensions,
-	// 		    'sort'          => '-ga:pageviews',
-	// 		    // 'filters'       => 'ga:pagePath==/',
-	// 		]
-	// 	);
-
-	// 	return $data->getRows();
-	// }
-
-	public function setStartDate($startDate)
+	/**
+	 * Execute the query and fetch the results to a collection.
+	 * 
+	 * @return Illuminate\Support\Collection
+	 */
+	public function getRealtimeData()
 	{
-		$this->startDate = $startDate;
+		$data = $this->service->data_realtime->get(
+			$this->analyticsViewId, 
+			'rt:activeUsers', 
+			$this->getOptions()
+		);
+
+		return $data->getRows();
 	}
 
-	public function setEndDate($endDate)
+	/**
+	 * Execute the query by merging arrays to current ones.
+	 * 
+	 * @param  array  $parameters 
+ 	 * @return Illuminate\Support\Collection
+	 */
+	public function execute($parameters = [])
 	{
-		$this->endDate = $endDate;
-	}
+		$this->mergeParams($parameters);
 
-	public function getStartDate()
-	{
-		return Carbon::createFromFormat('Y-m-d', $this->startDate);
-	}
-
-	public function getEndDate()
-	{
-		return Carbon::createFromFormat('Y-m-d', $this->endDate);
-	}
-
-	public function getMetrics()
-	{
-		return is_null($this->metrics) ? [] : explode(',', $this->metrics);
-	}
-
-	public function setMetrics($metrics)
-	{
-		if (is_array($metrics)) {
-			$metrics = implode(',', $metrics);
-		}
-
-		$this->metrics = $metrics;
-	}
-
-	public function mergeMetrics($newMetrics)
-	{
-		if (is_string($newMetrics)) {
-			$newMetrics = explode(',', $newMetrics);
-		}
-
-		$currentMetrics = $this->getMetrics();
-
-		$metrics = array_merge($currentMetrics, $newMetrics);
-
-		$metrics = array_unique($metrics);
-
-		$metrics = implode(',', $metrics);
-
-		$this->metrics = $metrics;
-	}
-
-	public function getDimensions()
-	{
-		return is_null($this->dimensions) ? [] : explode(',', $this->dimensions);
-	}
-
-	public function setDimensions($dimensions)
-	{
-		if (is_array($dimensions)) {
-			$dimensions = implode(',', $dimensions);
-		}
-
-		$this->dimensions = $dimensions;
-	}
-
-	public function mergeDimensions($newDimensions)
-	{
-		if (is_string($newDimensions)) {
-			$newDimensions = explode(',', $newDimensions);
-		}
-
-		$currentDimensions = $this->getDimensions();
-
-		$dimensions = array_merge($currentDimensions, $newDimensions);
-
-		$dimensions = array_unique($dimensions);
-
-		$dimensions = implode(',', $dimensions);
-
-		$this->dimensions = $dimensions;
-	}
-
-	public function setSort($sort)
-	{
-		$this->sort = $sort;
-	}
-
-	public function getSort($sort)
-	{
-		return $this->sort;
-	}
-
-	public function setFilters($filters)
-	{
-		$this->filters = $filters;
-	}
-
-	public function getFilters($filters)
-	{
-		return $this->filters;
-	}
-
-	public function setParams(array $params)
-	{
-		foreach ($params as $key => $value) {
-			if (property_exists($this, $key)) {
-
-				$methodName = 'set'.ucfirst($key);
-
-				if ( method_exists($this,  $methodName) ) {
-
-					call_user_func(
-						[$this, $methodName], 
-						$value
-					);
-
-				}
-
-			}
-		}
-	}
-
-	public function mergeParams(array $params)
-	{
-		foreach ($params as $key => $value) {
-
-			if (property_exists($this, $key)) {
-
-				$methodName = 'set'.ucfirst($key);
-
-				if ( method_exists($this,  $methodName) ) {
-
-					call_user_func(
-						[$this, $methodName], 
-						$value
-					);
-
-				}
-
-			}
-
-			throw new \Exception("Property [$key] does not exits.", 1);
-			
-		}
+		return $this->getData();
 	}
 
 }
