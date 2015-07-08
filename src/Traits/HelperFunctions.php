@@ -15,9 +15,11 @@ trait HelperFunctions {
 
 	private function getOptions()
 	{
-		$options = [
-			'output' => 'dataTable',
-		];
+		$options = [];
+
+		if (! $this->isRealTimeRequest()) {
+			$options['output'] = 'dataTable';
+		}
 
 		if ($this->dimentionsAreSet()) {
 			$options['dimensions'] = implode(',', $this->dimensions);
@@ -32,6 +34,11 @@ trait HelperFunctions {
 		}
 
 		return $options;
+	}
+
+	private function isRealTimeRequest()
+	{
+		return $this->getMetrics() == ['rt:activeUsers'];
 	}
 	
 }

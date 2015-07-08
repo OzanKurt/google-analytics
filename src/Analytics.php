@@ -78,13 +78,15 @@ class Analytics {
 	 */
 	public function getRealtimeData()
 	{
+		$this->setMetrics('rt:activeUsers');
+
 		$data = $this->service->data_realtime->get(
 			$this->analyticsViewId, 
-			'rt:activeUsers', 
+			$this->getMetricsAsString(), 
 			$this->getOptions()
 		);
 
-		return $data->getRows();
+		return $data->toSimpleObject()->totalsForAllResults;
 	}
 
 	/**
