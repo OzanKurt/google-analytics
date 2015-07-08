@@ -226,7 +226,7 @@ trait GoogleCommonFilters {
 	{
 		$this->setParams([
 			'metrics' => 'ga:pageviews,ga:sessionDuration,ga:exits',
-			'dimensions' => 'ge:source',
+			'dimensions' => 'ga:source',
 			'filters' => 'ga:medium==referral',
 			'sort' => '-ga:pageviews',
 		]);
@@ -246,7 +246,7 @@ trait GoogleCommonFilters {
 	{
 		$this->setParams([
 			'metrics' => 'ga:pageviews,ga:sessionDuration,ga:exits',
-			'dimensions' => 'ge:source',
+			'dimensions' => 'ga:source',
 			'filters' => 'ga:medium==cpa,ga:medium==cpc,ga:medium==cpm,ga:medium==cpp,ga:medium==cpv,ga:medium==organic,ga:medium==ppc',
 			'sort' => '-ga:pageviews',
 		]);
@@ -266,7 +266,7 @@ trait GoogleCommonFilters {
 	{
 		$this->setParams([
 			'metrics' => 'ga:pageviews,ga:sessionDuration,ga:exits',
-			'dimensions' => 'ge:source',
+			'dimensions' => 'ga:source',
 			'filters' => 'ga:medium==organic',
 			'sort' => '-ga:pageviews',
 		]);
@@ -286,7 +286,7 @@ trait GoogleCommonFilters {
 	{
 		$this->setParams([
 			'metrics' => 'ga:pageviews,ga:sessionDuration,ga:exits',
-			'dimensions' => 'ge:source',
+			'dimensions' => 'ga:source',
 			'filters' => 'ga:medium==cpa,ga:medium==cpc,ga:medium==cpm,ga:medium==cpp,ga:medium==cpv,ga:medium==ppc',
 			'sort' => '-ga:pageviews',
 		]);
