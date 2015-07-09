@@ -1,7 +1,7 @@
 {
   "name": "ozankurt/google-analytics",
   "description": "Laravel 5 Google Analytics",
-  "keywords": ["laravel", "google", "analytics"],
+  "keywords": ["laravel", "google", "analytics", "api", "service"],
   "license": "MIT",
   "authors": [
     {
@@ -11,9 +11,6 @@
   ],
   "require": {
     "ozankurt/google-core": "*"
-  },
-  "require-dev": {
-    "phpspec/phpspec": "~2.1"
   },
   "autoload": {
     "psr-4": {
