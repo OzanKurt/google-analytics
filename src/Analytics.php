@@ -21,7 +21,6 @@ class Analytics {
 	use CustomCommonFilters, GoogleCommonFilters;
 	use DatesHandler, DimensionsHandler, FiltersHandler, MetricsHandler, ParamsHandler, SegmentHandler, SortHandler;
 
-
 	private $googleServicesCore;
 
 	private $analyticsViewId; 
@@ -43,7 +42,7 @@ class Analytics {
 
 		$this->googleServicesCore = $googleServicesCore;
 
-		$this->setPropertiesFromConfigFile();
+		$this->setupConfiguration();
 
 		$this->setupAnalyticsService();
 
@@ -51,9 +50,9 @@ class Analytics {
 
 	}
 
-	private function setPropertiesFromConfigFile()
+	private function setupConfiguration()
 	{
-		$this->analyticsViewId = config('google.analytics.analyticsViewId');
+		$this->analyticsViewId = $this->googleServicesCore->getSettings('analyticsViewId');
 	}
 
 	private function setupAnalyticsService()
@@ -138,15 +137,15 @@ class Analytics {
 
 			}
 
-			$rows[] = collect($rowData);
+			$rows[] = $rowData;
 
 			unset($rowData);
 
 		}
 
 		return [
-			'cols' => collect($cols),
-			'rows' => collect($rows),
+			'cols' => $cols,
+			'rows' => $rows,
 		];
 	}
 

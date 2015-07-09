@@ -2,8 +2,6 @@
 
 namespace Kurt\Google\Traits\Handlers;
 
-use Carbon\Carbon;
-
 trait DatesHandler {
 	
 	/**
@@ -13,7 +11,7 @@ trait DatesHandler {
 	 */
 	public function setStartDate($startDate)
 	{
-		$this->startDate = $this->convertToStringIfCarbonObject($startDate);
+		$this->startDate = $startDate;
 
 		return $this;
 	}
@@ -25,7 +23,7 @@ trait DatesHandler {
 	 */
 	public function setEndDate($endDate)
 	{
-		$this->endDate = $this->convertToStringIfCarbonObject($endDate);
+		$this->endDate = $endDate;
 
 		return $this;
 	}
@@ -33,35 +31,21 @@ trait DatesHandler {
 	/**
 	 * Get the start date.
 	 * 
-	 * @param Carbon\Carbon $startDate
+	 * @return string $startDate
 	 */
 	public function getStartDate()
 	{
-		return Carbon::createFromFormat('Y-m-d', $this->startDate);
+		return $this->startDate;
 	}
 
 	/**
 	 * Get the end date.
 	 * 
-	 * @param Carbon\Carbon $startDate
+	 * @return string $startDate
 	 */
 	public function getEndDate()
 	{
-		return Carbon::createFromFormat('Y-m-d', $this->endDate);
-	}
-
-	/**
-	 * Converts the Carbon\Carbon objects to datetime string with `Y-m-d` format. 
-	 * 
-	 * @param string $value
-	 */
-	private function convertToStringIfCarbonObject($value)
-	{
-		if ( $value instanceof Carbon ) {
-			$value = $value->format('Y-m-d');
-		}
-
-		return $value;
+		return $this->endDate;
 	}
 	
 }
