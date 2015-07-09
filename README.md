@@ -1,5 +1,7 @@
 # Google Analytics
 
+Connecting to your analytics account and getting whatever data you need was never this easy. :sunglasses:
+
 ## Installation
 
 ### Step 1
