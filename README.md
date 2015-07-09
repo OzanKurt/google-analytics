@@ -24,7 +24,7 @@ Enable it
 
 ### Step 4
 
-Add analytics scope to your scopes array in the configuration file from `ozankurt/google-core` package.
+Add analytics scope to your scopes array to the configurations in `ozankurt/google-core` package.
 
 ```php
 'scopes' => [
@@ -32,19 +32,30 @@ Add analytics scope to your scopes array in the configuration file from `ozankur
 ],
 ```
 
-## Usage
+## Usage (Laravel)
+
+#### Step 1
+
+Add `analyticsViewId` to your `config/google.php`.
+
+```php
+return [
+
+    /**
+     * View ID can be found in `http://google.com/analytics` under the `Admin` tab on navigation.
+     *
+     * Select `Account`, `Property` and `View`. You will see a `View Settings` link.
+     */
+    'analytics' => [
+        'analyticsViewId' => 'ga:12345678',
+    ],
+
+];
+```
 
 #### Controller Example
 
 ```php
-<?php
-
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-
-use App\Http\Controllers\Controller;
-
 use Kurt\Google\Analytics as GoogleAnalytics;
 
 class GoogleController extends Controller
@@ -57,26 +68,60 @@ class GoogleController extends Controller
 
     public function index()
     {
-        return $this->ga->getUsersAndPageviewsOverTime()->parseResults();
+        $results = $this->ga->getUsersAndPageviewsOverTime()->parseResults();
+
+        var_dump($results);
     }
 }
 ```
 
+## Usage (Pure PHP)
+
+#### Example
+
+```
+<?php
+
+require 'vendor/autoload.php';
+
+use Kurt\Google\Core;
+use Kurt\Google\Analytics;
+
+$googleCore = new Core([
+    'applicationName'       => 'MyProject',
+    'p12FilePath'           => 'MyProject-1b6e6bbb8826.p12',
+    'serviceClientId'       => '122654635465-u7io2injkjniweklew48knh7158.apps.googleusercontent.com',
+    'serviceAccountName'    => '122654635465-u7io2injkjniweklew48knh7158@developer.gserviceaccount.com',
+    'scopes' => [
+        'https://www.googleapis.com/auth/analytics.readonly',
+    ],
+    'analyticsViewId'       => 'ga:97783314',
+]);
+
+$analytics = new Analytics($googleCore);
+
+$results = $analytics->getUsersAndPageviewsOverTime()->parseResults();
+
+var_dump($results);
+```
+
+### Results
+
+Both of these examples will give a result like this.
+
 The result of `GoogleController@index` should look like this:
 
-```json
-{
-    "cols": [
-        "ga:sessions",
-        "ga:pageviews"
-    ],
-    "rows": [
-        {
-            "ga:sessions": "113",
-            "ga:pageviews": "159"
-        }
-    ]
-}
+```
+array (size=2)
+    'cols' => 
+        array (size=2)
+            0 => string 'ga:sessions' (length=11)
+            1 => string 'ga:pageviews' (length=12)
+    'rows' => 
+        array (size=1)
+            0 => array (size=2)
+                'ga:sessions' => string '100' (length=3)
+                'ga:pageviews' => string '250' (length=3)
 ```
 
 ## License
