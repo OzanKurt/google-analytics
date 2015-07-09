@@ -4,7 +4,7 @@ namespace Kurt\Google;
 
 use Illuminate\Support\ServiceProvider;
 
-class GoogleAnalyticsServiceProvider extends ServiceProvider
+class AnalyticsServiceProvider extends ServiceProvider
 {
     /**
      * Register the application services.
@@ -13,7 +13,7 @@ class GoogleAnalyticsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerGoogleAnalytics();
+        $this->registerAnalytics();
     }
 
     /**
@@ -21,7 +21,7 @@ class GoogleAnalyticsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function registerGoogleAnalytics()
+    private function registerAnalytics()
     {
         $this->app->singleton(Analytics::class, function () {
             return new Analytics(Core::class);
