@@ -5,7 +5,7 @@
 ### Step 1
 Add `ozankurt/google-analytics` to your composer requirements.
 
-```
+```php
 composer require ozankurt/google-analytics
 ```
 
@@ -79,7 +79,7 @@ class GoogleController extends Controller
 
 #### Example
 
-```
+```php
 <?php
 
 require 'vendor/autoload.php';
@@ -111,7 +111,7 @@ Both of these examples will give a result like this.
 
 The result of `GoogleController@index` should look like this:
 
-```
+```php
 array (size=2)
     'cols' => 
         array (size=2)
