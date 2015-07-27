@@ -1,5 +1,7 @@
 # Google Analytics
 
+[![Latest Stable Version](https://poser.pugx.org/ozankurt/google-analytics/v/stable)](https://packagist.org/packages/ozankurt/google-analytics) [![Total Downloads](https://poser.pugx.org/ozankurt/google-analytics/downloads)](https://packagist.org/packages/ozankurt/google-analytics) [![Latest Unstable Version](https://poser.pugx.org/ozankurt/google-analytics/v/unstable)](https://packagist.org/packages/ozankurt/google-analytics) [![License](https://poser.pugx.org/ozankurt/google-analytics/license)](https://packagist.org/packages/ozankurt/google-analytics)
+
 Connecting to your analytics account and getting whatever data you need was never this easy. :sunglasses:
 
 ## Installation
