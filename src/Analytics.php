@@ -21,22 +21,22 @@ class Analytics {
 	use CustomCommonFilters, GoogleCommonFilters;
 	use DatesHandler, DimensionsHandler, FiltersHandler, MetricsHandler, ParamsHandler, SegmentHandler, SortHandler;
 
-	private $googleServicesCore;
+	protected $googleServicesCore;
 
-	private $analyticsViewId; 
+	protected $analyticsViewId; 
 
-	private $metrics = [];
-	private $dimensions = [];
-	private $sort;
-	private $filters;
-	private $segment;
+	protected $metrics = [];
+	protected $dimensions = [];
+	protected $sort;
+	protected $filters;
+	protected $segment;
 
-	private $startDate;
-	private $endDate;
+	protected $startDate;
+	protected $endDate;
 
-	private $data;
+	protected $data;
 
-	private $service;
+	protected $service;
 
 	function __construct(Core $googleServicesCore) {
 
@@ -63,11 +63,13 @@ class Analytics {
 		);
 	}
 
-	private function setupDates()
+	public function setupDates($startDate = null , $endDate = null)
 	{
-		$this->startDate = date('Y-m-d', strtotime('-1 month'));
+		$this->startDate = ($startDate) ? $startDate : date('Y-m-d', strtotime('-1 month'));
 	
-		$this->endDate = date('Y-m-d');
+		$this->endDate = ($endDate) ? $endDate : date('Y-m-d');
+		
+		return $this;
 	}
 
 	/**
@@ -116,7 +118,7 @@ class Analytics {
 		return $this;
 	}
 
-	private function getData()
+	public function getData()
 	{
 		return $this->data;
 	}
