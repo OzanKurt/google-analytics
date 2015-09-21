@@ -3,6 +3,8 @@
 namespace Kurt\Google\Traits;
 
 trait HelperFunctions {
+	
+	protected $options = [];
 
 	private function convertToArrayIfString($value)
 	{
@@ -15,25 +17,29 @@ trait HelperFunctions {
 
 	private function getOptions()
 	{
-		$options = [];
 
 		if (! $this->isRealTimeRequest()) {
-			$options['output'] = 'dataTable';
+			$this->options['output'] = 'dataTable';
 		}
 
 		if ($this->dimentionsAreSet()) {
-			$options['dimensions'] = implode(',', $this->dimensions);
+			$this->options['dimensions'] = implode(',', $this->dimensions);
 		}
 
 		if ($this->filtersAreSet()) {
-			$options['filters'] = $this->filters;
+			$this->options['filters'] = $this->filters;
 		}
 
 		if ($this->sortIsSet()) {
-			$options['sort'] = $this->sort;
+			$this->options['sort'] = $this->sort;
 		}
 
-		return $options;
+		return $this->options;
+	}
+	
+	public function setOptions(array $options){
+
+		$this->options = array_merge($this->options,$options);
 	}
 
 	private function isRealTimeRequest()
