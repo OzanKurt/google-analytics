@@ -2,35 +2,34 @@
 
 namespace Kurt\Google\Traits\Handlers;
 
-trait FiltersHandler {
+trait FiltersHandler
+{
+    public function getFilters($filters)
+    {
+        return $this->filters;
+    }
 
-	public function getFilters($filters)
-	{
-		return $this->filters;
-	}
+    public function setFilters($filters)
+    {
+        $this->filters = $filters;
 
-	public function setFilters($filters)
-	{
-		$this->filters = $filters;
+        return $this;
+    }
 
-		return $this;
-	}
+    public function unsetFilters()
+    {
+        $this->filters = null;
 
-	public function unsetFilters()
-	{
-		$this->filters = null;
+        return $this;
+    }
 
-		return $this;
-	}
-
-	/**
-	 * Determine if filters are set.
-	 * 
-	 * @return boolean
-	 */
-	private function filtersAreSet()
-	{
-		return ! is_null($this->filters);
-	}
-	
+    /**
+     * Determine if filters are set.
+     * 
+     * @return bool
+     */
+    private function filtersAreSet()
+    {
+        return !is_null($this->filters);
+    }
 }

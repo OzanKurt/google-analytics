@@ -2,43 +2,42 @@
 
 namespace Kurt\Google\Traits;
 
-trait HelperFunctions {
+trait HelperFunctions
+{
+    private function convertToArrayIfString($value)
+    {
+        if (is_string($value)) {
+            $value = explode(',', $value);
+        }
 
-	private function convertToArrayIfString($value)
-	{
-		if (is_string($value)) {
-			$value = explode(',', $value);
-		}
+        return $value;
+    }
 
-		return $value;
-	}
+    private function getOptions()
+    {
+        $options = [];
 
-	private function getOptions()
-	{
-		$options = [];
+        if (!$this->isRealTimeRequest()) {
+            $options['output'] = 'dataTable';
+        }
 
-		if (! $this->isRealTimeRequest()) {
-			$options['output'] = 'dataTable';
-		}
+        if ($this->dimentionsAreSet()) {
+            $options['dimensions'] = implode(',', $this->dimensions);
+        }
 
-		if ($this->dimentionsAreSet()) {
-			$options['dimensions'] = implode(',', $this->dimensions);
-		}
+        if ($this->filtersAreSet()) {
+            $options['filters'] = $this->filters;
+        }
 
-		if ($this->filtersAreSet()) {
-			$options['filters'] = $this->filters;
-		}
+        if ($this->sortIsSet()) {
+            $options['sort'] = $this->sort;
+        }
 
-		if ($this->sortIsSet()) {
-			$options['sort'] = $this->sort;
-		}
+        return $options;
+    }
 
-		return $options;
-	}
-
-	private function isRealTimeRequest()
-	{
-		return $this->getMetrics() == ['rt:activeUsers'];
-	}
-	
+    private function isRealTimeRequest()
+    {
+        return $this->getMetrics() == ['rt:activeUsers'];
+    }
 }

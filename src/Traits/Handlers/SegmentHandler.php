@@ -2,25 +2,24 @@
 
 namespace Kurt\Google\Traits\Handlers;
 
-trait SegmentHandler {
+trait SegmentHandler
+{
+    public function getSegment($segment)
+    {
+        return $this->segment;
+    }
 
-	public function getSegment($segment)
-	{
-		return $this->segment;
-	}
+    public function setSegment($segment)
+    {
+        $this->segment = $segment;
 
-	public function setSegment($segment)
-	{
-		$this->segment = $segment;
+        return $this;
+    }
 
-		return $this;
-	}
+    public function unsetSegment()
+    {
+        $this->segment = null;
 
-	public function unsetSegment()
-	{
-		$this->segment = null;
-
-		return $this;
-	}
-	
+        return $this;
+    }
 }
