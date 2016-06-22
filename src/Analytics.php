@@ -47,6 +47,26 @@ class Analytics
         $this->setupDates();
     }
 
+    /**
+     * Getter for analyticsViewId.
+     *
+     * @return string
+     */
+    public function getAnalyticsViewId()
+    {
+        return $this->analyticsViewId;
+    }
+
+    /**
+     * Setter for `analyticsViewId`, allows manual update inside code.
+     *
+     * @param string $newAnalyticsViewId
+     */
+    public function setAnalyticsViewId($newAnalyticsViewId)
+    {
+        $this->analyticsViewId = $newAnalyticsViewId;
+    }
+
     private function setupConfiguration()
     {
         $this->analyticsViewId = $this->googleServicesCore->getSettings('analyticsViewId');
