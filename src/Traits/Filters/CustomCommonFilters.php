@@ -1,6 +1,6 @@
 <?php
 
-namespace Kurt\Google\Traits\Filters;
+namespace Kurt\Google\Analytics\Traits\Filters;
 
 trait CustomCommonFilters
 {
@@ -11,17 +11,17 @@ trait CustomCommonFilters
      *
      * @return array
      */
-    public function getVisitsByDate($parameters = [])
+    public function getVisitsByDate($parameters = [], $parseResult = true)
     {
         $this->setParams([
             'metrics'    => 'ga:visits',
             'dimensions' => 'ga:date',
         ]);
 
-        return $this->execute($parameters);
+        return $this->execute($parameters, $parseResult);
     }
 
-    public function getAudienceStatistics($parameters = [])
+    public function getAudienceStatistics($parameters = [], $parseResult = true)
     {
         $this->setMetrics([
             'ga:visitors',
@@ -35,10 +35,10 @@ trait CustomCommonFilters
             'ga:avgTimeOnSite',
         ]);
 
-        return $this->execute($parameters);
+        return $this->execute($parameters, $parseResult);
     }
 
-    public function getVisitsByCountries($parameters = [])
+    public function getVisitsByCountries($parameters = [], $parseResult = true)
     {
         $this->setParams([
             'metrics'    => 'ga:visits',
@@ -46,10 +46,10 @@ trait CustomCommonFilters
             'sort'       => '-ga:visits',
         ]);
 
-        return $this->execute($parameters);
+        return $this->execute($parameters, $parseResult);
     }
 
-    public function getVisitsByCities($parameters = [])
+    public function getVisitsByCities($parameters = [], $parseResult = true)
     {
         $this->setParams([
             'metrics'    => 'ga:visits',
@@ -57,10 +57,10 @@ trait CustomCommonFilters
             'sort'       => '-ga:visits',
         ]);
 
-        return $this->execute($parameters);
+        return $this->execute($parameters, $parseResult);
     }
 
-    public function getVisitsByLanguages($parameters = [])
+    public function getVisitsByLanguages($parameters = [], $parseResult = true)
     {
         $this->setParams([
             'metrics'    => 'ga:visits',
@@ -68,10 +68,10 @@ trait CustomCommonFilters
             'sort'       => '-ga:visits',
         ]);
 
-        return $this->execute($parameters);
+        return $this->execute($parameters, $parseResult);
     }
 
-    public function getVisitsBySystemBrowsers($parameters = [])
+    public function getVisitsBySystemBrowsers($parameters = [], $parseResult = true)
     {
         $this->setParams([
             'metrics'    => 'ga:visits',
@@ -79,10 +79,10 @@ trait CustomCommonFilters
             'sort'       => '-ga:visits',
         ]);
 
-        return $this->execute($parameters);
+        return $this->execute($parameters, $parseResult);
     }
 
-    public function getVisitsBySystemOs($parameters = [])
+    public function getVisitsBySystemOs($parameters = [], $parseResult = true)
     {
         $this->setParams([
             'metrics'    => 'ga:visits',
@@ -90,10 +90,10 @@ trait CustomCommonFilters
             'sort'       => '-ga:visits',
         ]);
 
-        return $this->execute($parameters);
+        return $this->execute($parameters, $parseResult);
     }
 
-    public function getVisitsBySystemResolutions($parameters = [])
+    public function getVisitsBySystemResolutions($parameters = [], $parseResult = true)
     {
         $this->setParams([
             'metrics'    => 'ga:visits',
@@ -101,36 +101,36 @@ trait CustomCommonFilters
             'sort'       => '-ga:visits',
         ]);
 
-        return $this->execute($parameters);
+        return $this->execute($parameters, $parseResult);
     }
 
-    public function getPageviewsByDate($parameters = [])
+    public function getPageviewsByDate($parameters = [], $parseResult = true)
     {
         $this->setParams([
             'metrics'    => 'ga:pageviews',
             'dimensions' => 'ga:date',
         ]);
 
-        return $this->execute($parameters);
+        return $this->execute($parameters, $parseResult);
     }
 
-    public function getContentStatistics($parameters = [])
+    public function getContentStatistics($parameters = [], $parseResult = true)
     {
         $this->setMetrics([
             'ga:pageviews',
             'ga:uniquePageviews',
         ]);
 
-        return $this->execute($parameters);
+        return $this->execute($parameters, $parseResult);
     }
 
-    public function getVisitsPerPage($parameters = [])
+    public function getVisitsPerPage($parameters = [], $parseResult = true)
     {
         $this->setParams([
             'metrics' => 'ga:visits,ga:pageviews,ga:uniquePageviews,ga:bounceRate',
             'dimensions' => 'ga:pagePath',
         ]);
 
-        return $this->execute($parameters);
+        return $this->execute($parameters, $parseResult);
     }
 }

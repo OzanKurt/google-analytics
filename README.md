@@ -4,9 +4,6 @@
 
 Connecting to your analytics account and getting whatever data you need was never this easy. :sunglasses:
 
-## Urgent update: 
-[This page](https://developers.google.com/analytics/devguides/config/mgmt/v3/mgmtReference/management/profiles/list) contains some information about how to get viewIds of the authenticated users.
-
 ## Installation
 
 ### Step 1

@@ -1,6 +1,6 @@
 {
   "name": "ozankurt/google-analytics",
-  "description": "Laravel 5 Google Analytics",
+  "description": "Laravel Google Analytics",
   "keywords": ["laravel", "google", "analytics", "api", "service"],
   "license": "MIT",
   "authors": [
@@ -10,11 +10,12 @@
     }
   ],
   "require": {
-    "ozankurt/google-core": "~1.0"
+    "ozankurt/google-core": "~2.0",
+    "nesbot/carbon": "^1.21"
   },
   "autoload": {
     "psr-4": {
-      "Kurt\\Google\\": "src/"
+      "Kurt\\Google\\Core\\": "src/"
     }
   }
 }

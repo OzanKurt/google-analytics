@@ -1,6 +1,6 @@
 <?php
 
-namespace Kurt\Google\Traits\Handlers;
+namespace Kurt\Google\Analytics\Traits\Handlers;
 
 trait MetricsHandler
 {

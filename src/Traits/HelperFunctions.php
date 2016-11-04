@@ -1,6 +1,6 @@
 <?php
 
-namespace Kurt\Google\Traits;
+namespace Kurt\Google\Analytics\Traits;
 
 trait HelperFunctions
 {
