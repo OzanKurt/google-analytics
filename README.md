@@ -40,7 +40,7 @@ Add analytics scope to your scopes array to the configurations in `ozankurt/goog
 
 #### Step 1
 
-Add `analyticsViewId` to your `config/google.php`.
+Add `analytics.viewId` to your `config/google.php`.
 
 ```php
 return [
@@ -51,7 +51,7 @@ return [
      * Select `Account`, `Property` and `View`. You will see a `View Settings` link.
      */
     'analytics' => [
-        'analyticsViewId' => 'ga:12345678',
+        'viewId' => 'ga:12345678',
     ],
 
 ];
@@ -72,7 +72,7 @@ class GoogleController extends Controller
 
     public function index()
     {
-        $results = $this->ga->getUsersAndPageviewsOverTime()->parseResults();
+        $results = $this->ga->getUsersAndPageviewsOverTime();
 
         var_dump($results);
     }
@@ -92,19 +92,19 @@ use Kurt\Google\Core;
 use Kurt\Google\Analytics;
 
 $googleCore = new Core([
-    'applicationName'       => 'MyProject',
-    'p12FilePath'           => 'MyProject-1b6e6bbb8826.p12',
-    'serviceClientId'       => '122654635465-u7io2injkjniweklew48knh7158.apps.googleusercontent.com',
-    'serviceAccountName'    => '122654635465-u7io2injkjniweklew48knh7158@developer.gserviceaccount.com',
+    'applicationName'       => 'Google API Wrapper Demo',
+    'jsonFilePath'          => 'Google API Wrapper Demo-174e172143a9.json',
     'scopes' => [
-        'https://www.googleapis.com/auth/analytics.readonly',
+        Google_Service_Analytics::ANALYTICS_READONLY,
     ],
-    'analyticsViewId'       => 'ga:97783314',
+    'analytics' => [
+        'viewId' => 'ga:97783314'
+    ],
 ]);
 
 $analytics = new Analytics($googleCore);
 
-$results = $analytics->getUsersAndPageviewsOverTime()->parseResults();
+$results = $analytics->getUsersAndPageviewsOverTime();
 
 var_dump($results);
 ```
