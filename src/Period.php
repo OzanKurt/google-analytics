@@ -3,7 +3,7 @@
 namespace Kurt\Google\Analytics;
 
 use Carbon\Carbon;
-use Kurt\Google\Analytics\Exceptions\InvalidPeriod;
+use Kurt\Google\Analytics\Exceptions\InvalidPeriodException;
 
 class Period
 {
