@@ -43,8 +43,6 @@ Add analytics scope to your scopes array to the configurations in `ozankurt/goog
 Add `analytics.viewId` to your `config/google.php`.
 
 ```php
-return [
-
     /**
      * View ID can be found in `http://google.com/analytics` under the `Admin` tab on navigation.
      *
@@ -53,14 +51,12 @@ return [
     'analytics' => [
         'viewId' => 'ga:12345678',
     ],
-
-];
 ```
 
 #### Controller Example
 
 ```php
-use Kurt\Google\Analytics as GoogleAnalytics;
+use Kurt\Google\Analytics\Analytics as GoogleAnalytics;
 
 class GoogleController extends Controller
 {
@@ -88,14 +84,14 @@ class GoogleController extends Controller
 
 require 'vendor/autoload.php';
 
-use Kurt\Google\Core;
-use Kurt\Google\Analytics;
+use Kurt\Google\Core\Core;
+use Kurt\Google\Analytics\Analytics;
 
 $googleCore = new Core([
     'applicationName'       => 'Google API Wrapper Demo',
     'jsonFilePath'          => 'Google API Wrapper Demo-174e172143a9.json',
     'scopes' => [
-        Google_Service_Analytics::ANALYTICS_READONLY,
+        'https://www.googleapis.com/auth/analytics.readonly',
     ],
     'analytics' => [
         'viewId' => 'ga:97783314'
