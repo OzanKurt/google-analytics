@@ -30,6 +30,19 @@ class Period
     }
 
     /**
+     * Create a period instance.
+     * 
+     * @param  Carbon $startDate
+     * @param  Carbon $endDate
+     * 
+     * @return Period
+     */
+    public function create(Carbon $startDate, Carbon $endDate)
+    {
+        return new Period($startDate, $endDate);
+    }
+
+    /**
      * Gets the Starting date of the period.
      *
      * @return \Carbon\Carbon

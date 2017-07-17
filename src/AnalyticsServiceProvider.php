@@ -1,6 +1,6 @@
 <?php
 
-namespace Kurt\Google;
+namespace Kurt\Google\Analytics;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -17,7 +17,7 @@ class AnalyticsServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register Google Commands.
+     * Register Google Analytics.
      *
      * @return void
      */

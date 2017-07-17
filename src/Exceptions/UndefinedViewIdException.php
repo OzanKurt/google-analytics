@@ -1,6 +1,6 @@
 <?php
 
-namespace Kurt\Google\Exceptions;
+namespace Kurt\Google\Analytics\Exceptions;
 
 class UndefinedViewIdException extends \Exception
 {
