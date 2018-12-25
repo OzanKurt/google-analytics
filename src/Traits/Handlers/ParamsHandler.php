@@ -14,7 +14,7 @@ trait ParamsHandler
 
     /**
      * Get all the parameters that will be reflected to current query.
-     * 
+     *
      * @return array
      */
     public function getParams()
@@ -30,7 +30,7 @@ trait ParamsHandler
 
     /**
      * Set by overwriting existing parameters.
-     * 
+     *
      * @return array
      */
     public function setParams(array $params)

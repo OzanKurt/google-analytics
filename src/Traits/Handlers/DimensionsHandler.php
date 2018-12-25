@@ -6,7 +6,7 @@ trait DimensionsHandler
 {
     /**
      * Get the metrics of current query.
-     * 
+     *
      * @return array
      */
     public function getDimensions()
@@ -16,7 +16,7 @@ trait DimensionsHandler
 
     /**
      * Get the dimensions of current query as string.
-     * 
+     *
      * @return string
      */
     private function getDimensionsAsString()
@@ -46,7 +46,7 @@ trait DimensionsHandler
 
     /**
      * Convert `$newMetrics` to array if string given and pass the array to a helper function.
-     * 
+     *
      * @param string|array $newMetrics
      */
     public function mergeDimensions($newDimensions)
@@ -58,7 +58,7 @@ trait DimensionsHandler
 
     /**
      * Merge `$newMetrics` with current ones.
-     * 
+     *
      * @param array $newMetrics
      *
      * @return array
@@ -70,7 +70,7 @@ trait DimensionsHandler
 
     /**
      * Determine if dimensions are set.
-     * 
+     *
      * @return bool
      */
     private function dimentionsAreSet()

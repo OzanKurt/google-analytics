@@ -127,7 +127,7 @@ trait CustomCommonFilters
     public function getVisitsPerPage($parameters = [], $parseResult = true)
     {
         $this->setParams([
-            'metrics' => 'ga:visits,ga:pageviews,ga:uniquePageviews,ga:bounceRate',
+            'metrics'    => 'ga:visits,ga:pageviews,ga:uniquePageviews,ga:bounceRate',
             'dimensions' => 'ga:pagePath',
         ]);
 

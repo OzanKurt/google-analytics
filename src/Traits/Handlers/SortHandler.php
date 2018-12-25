@@ -25,7 +25,7 @@ trait SortHandler
 
     /**
      * Determine if sort is set.
-     * 
+     *
      * @return bool
      */
     private function sortIsSet()

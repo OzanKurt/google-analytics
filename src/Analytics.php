@@ -3,18 +3,18 @@
 namespace Kurt\Google\Analytics;
 
 use Carbon\Carbon;
-use Kurt\Google\Core\Core;
-use Kurt\Google\Analytics\Traits\HelperFunctions;
-use Kurt\Google\Analytics\Traits\Handlers\SortHandler;
-use Kurt\Google\Analytics\Traits\Handlers\DatesHandler;
-use Kurt\Google\Analytics\Traits\Handlers\ParamsHandler;
-use Kurt\Google\Analytics\Traits\Handlers\FiltersHandler;
-use Kurt\Google\Analytics\Traits\Handlers\MetricsHandler;
-use Kurt\Google\Analytics\Traits\Handlers\SegmentHandler;
-use Kurt\Google\Analytics\Traits\Handlers\DimensionsHandler;
+use Kurt\Google\Analytics\Exceptions\UndefinedViewIdException;
 use Kurt\Google\Analytics\Traits\Filters\CustomCommonFilters;
 use Kurt\Google\Analytics\Traits\Filters\GoogleCommonFilters;
-use Kurt\Google\Analytics\Exceptions\UndefinedViewIdException;
+use Kurt\Google\Analytics\Traits\Handlers\DatesHandler;
+use Kurt\Google\Analytics\Traits\Handlers\DimensionsHandler;
+use Kurt\Google\Analytics\Traits\Handlers\FiltersHandler;
+use Kurt\Google\Analytics\Traits\Handlers\MetricsHandler;
+use Kurt\Google\Analytics\Traits\Handlers\ParamsHandler;
+use Kurt\Google\Analytics\Traits\Handlers\SegmentHandler;
+use Kurt\Google\Analytics\Traits\Handlers\SortHandler;
+use Kurt\Google\Analytics\Traits\HelperFunctions;
+use Kurt\Google\Core\Core;
 
 class Analytics
 {
@@ -24,20 +24,20 @@ class Analytics
 
     /**
      * Google services core.
-     * 
+     *
      * @var \Kurt\Google\Core\Core
      */
     protected $googleServicesCore;
 
     /**
      * Google analytics view id.
-     * 
+     *
      * @var string
      */
     protected $viewId;
 
     /**
-     * Parameters
+     * Parameters.
      */
     protected $metrics = [];
     protected $dimensions = [];
@@ -47,14 +47,14 @@ class Analytics
 
     /**
      * Time period.
-     * 
+     *
      * @var \Kurt\Google\Analytics\Period
      */
     protected $period;
 
     /**
      * Google Analytics service instance.
-     * 
+     *
      * @var \Google_Service_Analytics
      */
     protected $service;
@@ -98,7 +98,7 @@ class Analytics
     private function configure()
     {
         $analyticsConfig = $this->googleServicesCore->getConfig('analytics');
-        
+
         if (array_key_exists('viewId', $analyticsConfig)) {
             $this->viewId = $analyticsConfig['viewId'];
         }
@@ -113,7 +113,7 @@ class Analytics
     }
 
     private function setupDates($startDate = null, $endDate = null)
-    { 
+    {
         $start = (new Carbon('first day of last month'))->hour(0)->minute(0)->second(0);
 
         $end = (new Carbon('last day of last month'))->hour(23)->minute(59)->second(59);
@@ -179,8 +179,8 @@ class Analytics
     /**
      * Validate analytics view ID.
      *
-     * @throws 
-     * 
+     * @throws
+     *
      * @return void
      */
     private function validateViewId()

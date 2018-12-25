@@ -9,14 +9,14 @@ class Period
 {
     /**
      * Starting date of the period.
-     * 
+     *
      * @var \Carbon\Carbon
      */
     public $startDate;
 
-    /** 
+    /**
      * Starting date of the period.
-     * 
+     *
      * @var \Carbon\Carbon
      */
     public $endDate;
@@ -31,15 +31,15 @@ class Period
 
     /**
      * Create a period instance.
-     * 
-     * @param  Carbon $startDate
-     * @param  Carbon $endDate
-     * 
+     *
+     * @param Carbon $startDate
+     * @param Carbon $endDate
+     *
      * @return Period
      */
     public function create(Carbon $startDate, Carbon $endDate)
     {
-        return new Period($startDate, $endDate);
+        return new self($startDate, $endDate);
     }
 
     /**

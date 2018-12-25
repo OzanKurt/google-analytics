@@ -4,7 +4,7 @@ namespace Kurt\Google\Analytics\Exceptions;
 
 use Carbon\Carbon;
 
-class InvalidPeriod extends \Exception
+class InvalidPeriodException extends \Exception
 {
     public static function startDateCannotBeAfterEndDate(Carbon $startDate, Carbon $endDate)
     {

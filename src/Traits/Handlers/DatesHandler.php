@@ -2,14 +2,14 @@
 
 namespace Kurt\Google\Analytics\Traits\Handlers;
 
-use Kurt\Google\Analytics\Period;
 use Carbon\Carbon;
+use Kurt\Google\Analytics\Period;
 
 trait DatesHandler
 {
     /**
      * Get the current time period.
-     * 
+     *
      * @return Period $period
      */
     public function getPeriod()
@@ -19,7 +19,7 @@ trait DatesHandler
 
     /**
      * Set a time period.
-     * 
+     *
      * @param Period $period
      */
     public function setPeriod(Period $period)
@@ -31,7 +31,7 @@ trait DatesHandler
 
     /**
      * Set a start date.
-     * 
+     *
      * @param string $startDate
      */
     public function setStartDate(Carbon $startDate)
@@ -43,7 +43,7 @@ trait DatesHandler
 
     /**
      * Set an end date.
-     * 
+     *
      * @param string $startDate
      */
     public function setEndDate(Carbon $endDate)
@@ -55,7 +55,7 @@ trait DatesHandler
 
     /**
      * Get the start date.
-     * 
+     *
      * @return Carbon $startDate
      */
     public function getStartDate()
@@ -65,7 +65,7 @@ trait DatesHandler
 
     /**
      * Get the end date.
-     * 
+     *
      * @return Carbon $startDate
      */
     public function getEndDate()

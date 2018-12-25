@@ -6,7 +6,7 @@ trait MetricsHandler
 {
     /**
      * Get the metrics of current query.
-     * 
+     *
      * @return array
      */
     public function getMetrics()
@@ -16,7 +16,7 @@ trait MetricsHandler
 
     /**
      * Get the metrics of current query as string.
-     * 
+     *
      * @return string
      */
     private function getMetricsAsString()
@@ -36,7 +36,7 @@ trait MetricsHandler
 
     /**
      * Convert `$newMetrics` to array if string given and pass the array to a helper function.
-     * 
+     *
      * @param string|array $newMetrics
      */
     public function mergeMetrics($newMetrics)
@@ -48,7 +48,7 @@ trait MetricsHandler
 
     /**
      * Merge `$newMetrics` with current ones.
-     * 
+     *
      * @param array $newMetrics
      *
      * @return array
@@ -60,7 +60,7 @@ trait MetricsHandler
 
     /**
      * Determine if metrics are set.
-     * 
+     *
      * @throws \Exception
      */
     private function metricsAreSet()

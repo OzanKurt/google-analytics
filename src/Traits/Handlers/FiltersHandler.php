@@ -25,7 +25,7 @@ trait FiltersHandler
 
     /**
      * Determine if filters are set.
-     * 
+     *
      * @return bool
      */
     private function filtersAreSet()
